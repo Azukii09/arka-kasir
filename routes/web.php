@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::resource('items', ItemController::class)
+    ->only(['index','store'])
+    ->middleware(['auth','verified']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
